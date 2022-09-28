@@ -17,9 +17,10 @@ namespace WindowsFormsApp1
         {
             InitializeComponent();
             this.DB = new Database();
+            this.DB.get_listproduct().ForEach(item => this.create_container_product(item.title,item.type_product, item.articul,item.material, item.image, item.price));
         }
 
-        public void create_container_product(string title)
+        public void create_container_product(string title, string type, int articu, string material,string image, decimal pric)
         {
             Panel container = new Panel();
             PictureBox product_img = new PictureBox();
@@ -34,18 +35,24 @@ namespace WindowsFormsApp1
             title_product.Text = title;
             title_product.AutoSize = true;
             type_product.AutoSize = true;
+            type_product.Text = type;
+            articul.AutoSize = true;
+            articul.Text = articu.ToString();
             container.BorderStyle = BorderStyle.FixedSingle;
             container.Size = new Size(485, 81);
             line.Text = "|";
             line.AutoSize = true;
             product_img.Size = new Size(106, 73);
             product_img.Location = new Point(3, 3);
+            product_img.SizeMode = PictureBoxSizeMode.Zoom;
+            product_img.Image = Image.FromFile($".{image}");
             group_typeandtitle.Size = new Size(183, 20);
             group_typeandtitle.Location = new Point(115, 3);
             articul.Location = new Point(118, 26);
-            material_list.Text = "Материалы:";
+            material_list.Text = $"Материалы:{material}";
             material_list.Location = new Point(115, 47);
             price.Location = new Point(424, 10);
+            price.Text = pric.ToString();
 
             container.Controls.Add(product_img);
 
@@ -63,7 +70,7 @@ namespace WindowsFormsApp1
 
         private void button1_Click(object sender, EventArgs e)
         {
-            this.DB.get_listproduct().ForEach(item => this.create_container_product(item.title));
+            
         }
     }
 }

@@ -27,7 +27,7 @@ namespace WindowsFormsApp1
             List<Product> list_product = new List<Product>();
             while (stream.Read())
             {
-                list_product.Add(new Product((string)stream[1],stream[2].ToString(),Convert.ToInt32(stream[3]),"null",(decimal)stream[8]));
+                list_product.Add(new Product((string)stream[1],stream[2].ToString(),Convert.ToInt32(stream[3]),"null", stream[5].ToString() != "" ? stream[5].ToString() : "/picture.png", (decimal)stream[8]));
             }
             stream.Close();
             return list_product;

@@ -12,14 +12,16 @@ namespace WindowsFormsApp1
         public string type_product;
         public int articul;
         public string material;
+        public string image;
         public decimal price;
 
-        public Product(string title, string type_product, int articul,string material, decimal price)
+        public Product(string title, string type_product, int articul,string material,string image, decimal price)
         {
             this.title = title;
             this.type_product = type_product;
             this.articul = articul;
             this.material = material;
+            this.image = image;
             this.price = price;
         }
     }
