@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.Configuration;
 using System.Data.SqlClient;
 using System.Data.Sql;
+using System.Data;
 
 namespace WindowsFormsApp1
 {
@@ -20,16 +21,50 @@ namespace WindowsFormsApp1
             this.cmd = new SqlCommand("",this.connection);
         }
 
+        private DataTable getTableListMaterial(int IdProduct)
+        {
+            SqlDataAdapter data = new SqlDataAdapter($@"select Material.Title as MaterialTitle,Count from ProductMaterial
+                                                        inner join Product
+                                                        on Product.ID = ProductMaterial.ProductID
+                                                        inner join Material
+                                                        on Material.ID = ProductMaterial.MaterialID
+                                                        where Product.ID = {IdProduct}", this.connection);
+            DataSet dataSet = new DataSet();
+            data.Fill(dataSet);
+            return dataSet.Tables[0];
+        }
+
+        private DataTable getTableListProduct()
+        {
+            SqlDataAdapter data = new SqlDataAdapter($@"select Product.ID, Product.Title,ProductType.Title,ArticleNumber,Image,MinCostForAgent from Product
+                                                    INNER JOIN ProductType
+                                                    on ProductType.ID = Product.ProductTypeID", this.connection);
+            DataSet dataSet = new DataSet();
+            data.Fill(dataSet);
+            return dataSet.Tables[0];
+        }
+
         public List<Product> get_listproduct()
         {
-            this.cmd.CommandText = "select * from Product";
-            SqlDataReader stream = this.cmd.ExecuteReader();
+            DataTable listproduct = getTableListProduct();
             List<Product> list_product = new List<Product>();
-            while (stream.Read())
+            foreach (DataRow stream in listproduct.Rows)
             {
-                list_product.Add(new Product((string)stream[1],stream[2].ToString(),Convert.ToInt32(stream[3]),"null", stream[5].ToString() != "" ? stream[5].ToString() : "/picture.png", (decimal)stream[8]));
+                string Material = "";
+                this.cmd.CommandText = $@"select Material.Title as MaterialTitle,Count from ProductMaterial
+                                        inner join Product
+                                        on Product.ID = ProductMaterial.ProductID
+                                        inner join Material
+                                        on Material.ID = ProductMaterial.MaterialID
+                                        where Product.ID = {(int)stream[0]}";
+                SqlDataReader stream2 = this.cmd.ExecuteReader();
+                while (stream2.Read())
+                {
+                    Material += $",{(string)stream2[0]}";
+                }
+                stream2.Close();
+                list_product.Add(new Product((string)stream[1], stream[2].ToString(), Convert.ToInt32(stream[3]), Material, stream[4].ToString() != "" ? stream[4].ToString() : "/picture.png", (decimal)stream[5]));
             }
-            stream.Close();
             return list_product;
         }
     }

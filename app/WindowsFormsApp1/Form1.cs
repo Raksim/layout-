@@ -46,11 +46,12 @@ namespace WindowsFormsApp1
             product_img.Location = new Point(3, 3);
             product_img.SizeMode = PictureBoxSizeMode.Zoom;
             product_img.Image = Image.FromFile($".{image}");
-            group_typeandtitle.Size = new Size(183, 20);
+            group_typeandtitle.Size = new Size(250, 20);
             group_typeandtitle.Location = new Point(115, 3);
             articul.Location = new Point(118, 26);
             material_list.Text = $"Материалы:{material}";
             material_list.Location = new Point(115, 47);
+            material_list.Size = new Size(300,40);
             price.Location = new Point(424, 10);
             price.Text = pric.ToString();
 
