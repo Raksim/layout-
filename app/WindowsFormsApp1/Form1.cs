@@ -69,9 +69,10 @@ namespace WindowsFormsApp1
             flowLayoutPanel1.Controls.Add(container);
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void textBox1_TextChanged(object sender, EventArgs e)
         {
-            
+            flowLayoutPanel1.Controls.Clear();
+            this.DB.get_listproduct(textBox1.Text).ForEach(item => this.create_container_product(item.title, item.type_product, item.articul, item.material, item.image, item.price));
         }
     }
 }
