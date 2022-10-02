@@ -12,11 +12,11 @@ namespace WindowsFormsApp1
 {
     public partial class Form1 : Form
     {
-        Database DB;
-        public Form1()
+        public Database DB;
+        public Form1(Database database )
         {
             InitializeComponent();
-            this.DB = new Database();
+            this.DB = database;
             this.DB.get_listproduct().ForEach(item => this.create_container_product(item.title,item.type_product, item.articul,item.material, item.image, item.price));
         }
 

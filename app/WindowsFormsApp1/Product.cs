@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace WindowsFormsApp1
 {
-    internal class Product
+    public class Product
     {
         public int id;
         public string title;

@@ -10,10 +10,10 @@ using System.Data;
 
 namespace WindowsFormsApp1
 {
-    class Database
+    public class Database
     {
-        SqlCommand cmd;
-        SqlConnection connection;
+        public SqlCommand cmd;
+        public SqlConnection connection;
         public Database()
         {
             this.connection = new SqlConnection(ConfigurationManager.ConnectionStrings[1].ConnectionString);
