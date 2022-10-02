@@ -28,5 +28,10 @@ namespace WindowsFormsApp1
         {
             new add_product(this.DB).Show();
         }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

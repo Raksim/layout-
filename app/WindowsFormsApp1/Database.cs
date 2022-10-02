@@ -67,7 +67,6 @@ namespace WindowsFormsApp1
             data.Fill(dataSet);
             return dataSet.Tables[0];
         }
-
         public List<Product> get_listproduct()
         {
             DataTable listproduct = getTableListProduct();
@@ -77,6 +76,19 @@ namespace WindowsFormsApp1
         {
             DataTable listproduct = getTableListProduct(search);
             return create_listproduct(listproduct);
+        }
+        public DataTable get_listTypeProduct()
+        {
+            SqlDataAdapter data = new SqlDataAdapter("select * from ProductType", this.connection);
+            DataSet dataSet = new DataSet();
+            data.Fill(dataSet);
+            return dataSet.Tables[0];
+        }
+        public void add_product(string title,int typeproduct,int articul,string description,string image,int numberworkshop,decimal MinCostForAgent)
+        {
+            this.cmd.CommandText = $@"INSERT INTO Product
+                                    VALUES ('{title}',{typeproduct},'{articul}','{description}','{image}',0,{numberworkshop},{MinCostForAgent.ToString().Replace(',','.')})";
+            this.cmd.ExecuteNonQuery();
         }
     }
 }
