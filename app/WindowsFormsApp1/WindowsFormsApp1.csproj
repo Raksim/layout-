@@ -81,6 +81,12 @@
     <Compile Include="Product.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="remove_product.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="remove_product.Designer.cs">
+      <DependentUpon>remove_product.cs</DependentUpon>
+    </Compile>
     <Compile Include="select_mode.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -102,6 +108,9 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="remove_product.resx">
+      <DependentUpon>remove_product.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="select_mode.resx">
       <DependentUpon>select_mode.cs</DependentUpon>
     </EmbeddedResource>

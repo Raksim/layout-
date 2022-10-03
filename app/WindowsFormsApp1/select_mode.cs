@@ -31,6 +31,11 @@ namespace WindowsFormsApp1
 
         private void button3_Click(object sender, EventArgs e)
         {
+            new remove_product(this.DB).Show();
+        }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
 
         }
     }
