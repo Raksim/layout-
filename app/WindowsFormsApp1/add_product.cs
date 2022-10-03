@@ -14,10 +14,12 @@ namespace WindowsFormsApp1
     public partial class add_product : Form
     {
         public Database database;
-        public add_product(Database database)
+        public Form form;
+        public add_product(Database database,Form form)
         {
             InitializeComponent();
             this.database = database;
+            this.form = form;
             comboBox1.DataSource = this.database.get_listTypeProduct();
             comboBox1.DisplayMember = "Title";
             comboBox1.ValueMember = "ID";
@@ -26,13 +28,12 @@ namespace WindowsFormsApp1
         private void button2_Click(object sender, EventArgs e)
         {
             openFileDialog1.ShowDialog();
-            Console.WriteLine(textBox3.TextLength);
             label6.Text = openFileDialog1.SafeFileName;
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
-            if (openFileDialog1.FileNames.Length !=0)
+            if (openFileDialog1.FileName != "openFileDialog1")
             {
                 File.Copy(openFileDialog1.FileName, $"./products/paper_{Directory.GetFiles("./products").Length}.jpeg");
             }
@@ -41,10 +42,15 @@ namespace WindowsFormsApp1
                 (int)comboBox1.SelectedValue,
                 Convert.ToInt32(numericUpDown3.Value),
                 textBox3.TextLength !=0 ? textBox3.Text:null,
-                openFileDialog1.FileNames.Length >= 1 ? $"/products/paper_{Directory.GetFiles("./products").Length-1}.jpeg" : null,
+                openFileDialog1.FileName != "openFileDialog1" ? $"/products/paper_{Directory.GetFiles("./products").Length-1}.jpeg" : null,
                 Convert.ToInt32(numericUpDown1.Value),
                 numericUpDown2.Value);
             MessageBox.Show("Продукция добавленна");
+        }
+
+        private void add_product_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            form.Show();
         }
     }
 }

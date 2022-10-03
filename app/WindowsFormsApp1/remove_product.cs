@@ -15,10 +15,12 @@ namespace WindowsFormsApp1
     {
         public Database database;
         public List<Product> listproduct;
-        public remove_product(Database database )
+        public Form select_mode;
+        public remove_product(Database database, Form select_mode)
         {
             InitializeComponent();
             this.database = database;
+            this.select_mode = select_mode;
             this.refresh();
         }
         public void create_container_product(int id, string title, string type, int articu, string material, string image, decimal pric)
@@ -92,6 +94,12 @@ namespace WindowsFormsApp1
                 this.database.remove_product(Convert.ToInt32(((Panel)sender).Name));
                 this.refresh();
             }
+        }
+
+        private void remove_product_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            this.select_mode.Show();
+            this.Hide();
         }
     }
 }

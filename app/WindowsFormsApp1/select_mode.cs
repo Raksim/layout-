@@ -21,22 +21,26 @@ namespace WindowsFormsApp1
 
         private void button1_Click(object sender, EventArgs e)
         {
-            new Form1(this.DB).Show();
+            this.Hide();
+            new Form1(this.DB,this).Show();
         }
 
         private void button2_Click(object sender, EventArgs e)
         {
-            new add_product(this.DB).Show();
+            this.Hide();
+            new add_product(this.DB,this).Show();
         }
 
         private void button3_Click(object sender, EventArgs e)
         {
-            new remove_product(this.DB).Show();
+            this.Hide();
+            new remove_product(this.DB,this).Show();
         }
 
         private void button4_Click(object sender, EventArgs e)
         {
-
+            this.Hide();
+            new select_product(this.DB,this).Show();
         }
     }
 }

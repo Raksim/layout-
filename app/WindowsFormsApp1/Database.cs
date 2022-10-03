@@ -96,5 +96,11 @@ namespace WindowsFormsApp1
             this.cmd.CommandText = $@"DELETE FROM Product WHERE ID = {id}";
             this.cmd.ExecuteNonQuery();
         }
+        public void edit_product(int id,string title,int typeproduct,int ArticleNumber,string Image,decimal MinCostForAgent)
+        {
+            this.cmd.CommandText = $@"UPDATE Product set Title = '{title}',ProductTypeID = {typeproduct},ArticleNumber = '{ArticleNumber}',Image = '{Image}',MinCostForAgent = {MinCostForAgent.ToString().Replace(',','.')}  WHERE ID = {id}";
+            this.cmd.ExecuteNonQuery();
+        }
+
     }
 }

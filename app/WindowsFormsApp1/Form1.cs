@@ -13,10 +13,12 @@ namespace WindowsFormsApp1
     public partial class Form1 : Form
     {
         public Database DB;
-        public Form1(Database database )
+        public Form select_mode;
+        public Form1(Database database, Form select_mode)
         {
             InitializeComponent();
             this.DB = database;
+            this.select_mode = select_mode;
             this.DB.get_listproduct().ForEach(item => this.create_container_product(item.title,item.type_product, item.articul,item.material, item.image, item.price));
         }
 
@@ -73,6 +75,11 @@ namespace WindowsFormsApp1
         {
             flowLayoutPanel1.Controls.Clear();
             this.DB.get_listproduct(textBox1.Text).ForEach(item => this.create_container_product(item.title, item.type_product, item.articul, item.material, item.image, item.price));
+        }
+
+        private void Form1_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            select_mode.Show();
         }
     }
 }

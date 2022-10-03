@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(remove_product));
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
             this.SuspendLayout();
@@ -58,8 +59,10 @@
             this.Controls.Add(this.flowLayoutPanel1);
             this.Controls.Add(this.textBox1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "remove_product";
-            this.Text = "remove_product";
+            this.Text = "layout";
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.remove_product_FormClosed);
             this.ResumeLayout(false);
             this.PerformLayout();
 
