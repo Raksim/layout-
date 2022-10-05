@@ -72,6 +72,12 @@
       <DependentUpon>add_product.cs</DependentUpon>
     </Compile>
     <Compile Include="Database.cs" />
+    <Compile Include="edit_material_product.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="edit_material_product.Designer.cs">
+      <DependentUpon>edit_material_product.cs</DependentUpon>
+    </Compile>
     <Compile Include="edit_product.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -107,6 +113,9 @@
     </Compile>
     <EmbeddedResource Include="add_product.resx">
       <DependentUpon>add_product.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="edit_material_product.resx">
+      <DependentUpon>edit_material_product.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="edit_product.resx">
       <DependentUpon>edit_product.cs</DependentUpon>

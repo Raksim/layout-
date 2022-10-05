@@ -42,5 +42,10 @@ namespace WindowsFormsApp1
             this.Hide();
             new select_product(this.DB,this).Show();
         }
+
+        private void button5_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }
