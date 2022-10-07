@@ -88,12 +88,18 @@ namespace WindowsFormsApp1
 
         private void showid(object sender, EventArgs e)
         {
-            if (MessageBox.Show("Удалить эту продукцию", "Выбор", MessageBoxButtons.YesNo) == DialogResult.Yes?true:false)
+            Func<bool> d = () =>
             {
+                if (MessageBox.Show("Удалить эту продукцию", "Выбор", MessageBoxButtons.YesNo) == DialogResult.Yes ? false : true )
+                {
+                    return false;
+                }
                 flowLayoutPanel1.Controls.Clear();
                 this.database.remove_product(Convert.ToInt32(((Panel)sender).Name));
                 this.refresh();
-            }
+                return true;
+            };
+            d();
         }
 
         private void remove_product_FormClosed(object sender, FormClosedEventArgs e)
