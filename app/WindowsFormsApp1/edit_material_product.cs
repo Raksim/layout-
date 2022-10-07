@@ -80,7 +80,13 @@ namespace WindowsFormsApp1
         }
         private void showid(object sender, EventArgs e)
         {
-            
+            this.Dispose();
+            new edit_material(database,this.select_mode, Convert.ToInt32(((Panel)sender).Name)).Show();
+        }
+
+        private void textBox1_TextChanged(object sender, EventArgs e)
+        {
+            refresh();
         }
     }
 }

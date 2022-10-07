@@ -183,7 +183,7 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "edit_product";
-            this.Text = "layout";
+            this.Text = "Лопушок";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.edit_product_FormClosed);
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown3)).EndInit();

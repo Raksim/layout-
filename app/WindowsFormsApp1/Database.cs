@@ -68,6 +68,22 @@ namespace WindowsFormsApp1
             return dataSet.Tables[0];
         }
         
+        public DataTable get_material_product(int id)
+        {
+            SqlDataAdapter data = new SqlDataAdapter($@"select MaterialID,Material.Title as MaterialTitle,Count from ProductMaterial
+                                                    INNER join Material on Material.ID = MaterialID
+                                                    where ProductID = {id}",this.connection);
+            DataSet dataSet = new DataSet();
+            data.Fill(dataSet);
+            return dataSet.Tables[0];
+        }
+        public DataTable get_material()
+        {
+            SqlDataAdapter data = new SqlDataAdapter($@"select * from Material", this.connection);
+            DataSet dataSet = new DataSet();
+            data.Fill(dataSet);
+            return dataSet.Tables[0];
+        }
         public List<Product> get_listproduct()
         {
             DataTable listproduct = getTableListProduct();
@@ -101,6 +117,15 @@ namespace WindowsFormsApp1
             this.cmd.CommandText = $@"UPDATE Product set Title = '{title}',ProductTypeID = {typeproduct},ArticleNumber = '{ArticleNumber}',Image = '{Image}',MinCostForAgent = {MinCostForAgent.ToString().Replace(',','.')}  WHERE ID = {id}";
             this.cmd.ExecuteNonQuery();
         }
-
+        public void add_material_product(int product,int material)
+        {
+            this.cmd.CommandText = $@"INSERT INTO ProductMaterial VALUES ({product},{material},1)";
+            this.cmd.ExecuteNonQuery();
+        }
+        public void remove_material_product(int product, int material)
+        {
+            this.cmd.CommandText = $@"DELETE FROM ProductMaterial where ProductID = {product} AND MaterialID = {material}";
+            this.cmd.ExecuteNonQuery();
+        }
     }
 }

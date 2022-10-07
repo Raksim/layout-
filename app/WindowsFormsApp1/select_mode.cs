@@ -45,7 +45,8 @@ namespace WindowsFormsApp1
 
         private void button5_Click(object sender, EventArgs e)
         {
-
+            this.Hide();
+            new edit_material_product(this.DB, this).Show();
         }
     }
 }

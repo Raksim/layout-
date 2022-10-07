@@ -61,7 +61,8 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "select_product";
-            this.Text = "layout";
+            this.Text = "Лопушок";
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.select_product_FormClosed);
             this.ResumeLayout(false);
             this.PerformLayout();
 

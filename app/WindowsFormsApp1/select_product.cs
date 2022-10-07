@@ -96,5 +96,10 @@ namespace WindowsFormsApp1
             }
             this.Dispose();
         }
+
+        private void select_product_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            this.select_mode.Show();
+        }
     }
 }

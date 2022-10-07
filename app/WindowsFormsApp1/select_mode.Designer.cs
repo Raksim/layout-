@@ -38,9 +38,9 @@
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(31, 17);
+            this.button1.Location = new System.Drawing.Point(18, 17);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(138, 38);
+            this.button1.Size = new System.Drawing.Size(173, 38);
             this.button1.TabIndex = 0;
             this.button1.Text = "Просмотр списка продукции";
             this.button1.UseVisualStyleBackColor = true;
@@ -48,9 +48,9 @@
             // 
             // button2
             // 
-            this.button2.Location = new System.Drawing.Point(31, 61);
+            this.button2.Location = new System.Drawing.Point(18, 61);
             this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(138, 33);
+            this.button2.Size = new System.Drawing.Size(173, 33);
             this.button2.TabIndex = 1;
             this.button2.Text = "Добавление продукции";
             this.button2.UseVisualStyleBackColor = true;
@@ -58,9 +58,9 @@
             // 
             // button3
             // 
-            this.button3.Location = new System.Drawing.Point(31, 100);
+            this.button3.Location = new System.Drawing.Point(18, 100);
             this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(138, 35);
+            this.button3.Size = new System.Drawing.Size(173, 35);
             this.button3.TabIndex = 1;
             this.button3.Text = "Удалении продукции";
             this.button3.UseVisualStyleBackColor = true;
@@ -68,9 +68,9 @@
             // 
             // button4
             // 
-            this.button4.Location = new System.Drawing.Point(31, 141);
+            this.button4.Location = new System.Drawing.Point(18, 141);
             this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(138, 35);
+            this.button4.Size = new System.Drawing.Size(173, 35);
             this.button4.TabIndex = 1;
             this.button4.Text = "Редактирование продукции";
             this.button4.UseVisualStyleBackColor = true;
@@ -78,11 +78,11 @@
             // 
             // button5
             // 
-            this.button5.Location = new System.Drawing.Point(31, 182);
+            this.button5.Location = new System.Drawing.Point(18, 182);
             this.button5.Name = "button5";
-            this.button5.Size = new System.Drawing.Size(138, 35);
+            this.button5.Size = new System.Drawing.Size(173, 48);
             this.button5.TabIndex = 2;
-            this.button5.Text = "Управление списком материалов";
+            this.button5.Text = "Управление списком материалов необходимых для производства продукции";
             this.button5.UseVisualStyleBackColor = true;
             this.button5.Click += new System.EventHandler(this.button5_Click);
             // 
@@ -90,7 +90,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(197, 237);
+            this.ClientSize = new System.Drawing.Size(203, 242);
             this.Controls.Add(this.button5);
             this.Controls.Add(this.button4);
             this.Controls.Add(this.button3);
@@ -99,7 +99,7 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "select_mode";
-            this.Text = "layout";
+            this.Text = "Лопушок";
             this.ResumeLayout(false);
 
         }
