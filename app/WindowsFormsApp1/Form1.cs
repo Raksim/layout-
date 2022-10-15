@@ -14,12 +14,16 @@ namespace WindowsFormsApp1
     {
         public Database DB;
         public Form select_mode;
+        private string search = "";
+        private string ORDER_BY = "ID ASC";
+        private string filter = "";
+
         public Form1(Database database, Form select_mode)
         {
             InitializeComponent();
             this.DB = database;
             this.select_mode = select_mode;
-            this.DB.get_listproduct().ForEach(item => this.create_container_product(item.title,item.type_product, item.articul,item.material, item.image, item.price));
+            this.refresh();
         }
 
         public void create_container_product(string title, string type, int articu, string material,string image, decimal pric)
@@ -73,13 +77,79 @@ namespace WindowsFormsApp1
 
         private void textBox1_TextChanged(object sender, EventArgs e)
         {
+            this.search = textBox1.Text;
+            this.refresh();
+        }
+
+        private void refresh()
+        {
             flowLayoutPanel1.Controls.Clear();
-            this.DB.get_listproduct(textBox1.Text).ForEach(item => this.create_container_product(item.title, item.type_product, item.articul, item.material, item.image, item.price));
+            if (filter.Length != 0)
+            {
+                this.DB.get_listproduct(search,ORDER_BY,filter).ForEach(item => this.create_container_product(item.title, item.type_product, item.articul, item.material, item.image, item.price));
+            }
+            else
+            {
+                this.DB.get_listproduct(search, ORDER_BY).ForEach(item => this.create_container_product(item.title, item.type_product, item.articul, item.material, item.image, item.price));
+            }
         }
 
         private void Form1_FormClosed(object sender, FormClosedEventArgs e)
         {
             select_mode.Show();
+        }
+
+        private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            switch (comboBox1.SelectedIndex)
+            {
+                case 0:
+                    this.ORDER_BY = "Product.Title ";
+                    break;
+                case 1:
+                    this.ORDER_BY = "Product.ProductTypeID ";
+                    break;
+                case 2:
+                    this.ORDER_BY = "Product.ArticleNumber ";
+                    break;
+                case 3:
+                    this.ORDER_BY = "Product.MinCostForAgent ";
+                    break;
+            }
+            contextMenuStrip1.Show(MousePosition);
+        }
+
+        private void возрастаниюToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            this.ORDER_BY += "ASC";
+            this.refresh();
+        }
+
+        private void убываниюToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            this.ORDER_BY += "DESC";
+            this.refresh();
+        }
+
+        private void comboBox2_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            contextMenuStrip2.Items.Clear();
+            switch (comboBox2.SelectedIndex)
+            {
+                case 0:
+                    this.filter = "ProductTypeID = ";
+                    break;
+            }
+            foreach (DataRow n in this.DB.get_producttype().Rows)
+            {
+                contextMenuStrip2.Items.Add(Convert.ToString(n[1]), null,this.selectmenu);
+            }
+            contextMenuStrip2.Show(MousePosition);
+        }
+        private void selectmenu(object sender, EventArgs e)
+        {
+            this.filter += contextMenuStrip2.Items.IndexOf(((ToolStripItem)sender)) + 1;
+            this.refresh();
         }
     }
 }

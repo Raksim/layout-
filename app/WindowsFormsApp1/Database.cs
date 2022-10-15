@@ -24,6 +24,7 @@ namespace WindowsFormsApp1
         private string getTableListMaterial(int IdProduct)
         {
             string Material = "";
+            List<string> array = new List<string> { };
             this.cmd.CommandText = $@"select Material.Title as MaterialTitle,Count from ProductMaterial
                                         inner join Product
                                         on Product.ID = ProductMaterial.ProductID
@@ -33,9 +34,10 @@ namespace WindowsFormsApp1
             SqlDataReader stream2 = this.cmd.ExecuteReader();
             while (stream2.Read())
             {
-                Material += $",{(string)stream2[0]}";
+                array.Add($"{(string)stream2[0]}");
             }
             stream2.Close();
+            Material = String.Join(", ", array);
             return Material;
         }
         private List<Product> create_listproduct(DataTable listproduct)
@@ -48,26 +50,14 @@ namespace WindowsFormsApp1
             }
             return list_product;
         }
-        private DataTable getTableListProduct()
-        {
-            SqlDataAdapter data = new SqlDataAdapter($@"select Product.ID, Product.Title,ProductType.Title,ArticleNumber,Image,MinCostForAgent from Product
-                                                    INNER JOIN ProductType
-                                                    on ProductType.ID = Product.ProductTypeID", this.connection);
-            DataSet dataSet = new DataSet();
-            data.Fill(dataSet);
-            return dataSet.Tables[0];
-        }
-        private DataTable getTableListProduct(string search)
-        {
-            SqlDataAdapter data = new SqlDataAdapter($@"select Product.ID, Product.Title,ProductType.Title,ArticleNumber,Image,MinCostForAgent from Product
-                                                    INNER JOIN ProductType
-                                                    on ProductType.ID = Product.ProductTypeID
-                                                    where Product.Title LIKE '%{search}%'", this.connection);
-            DataSet dataSet = new DataSet();
-            data.Fill(dataSet);
-            return dataSet.Tables[0];
-        }
         
+        public DataTable get_producttype()
+        {
+            SqlDataAdapter data = new SqlDataAdapter($@"select * from ProductType", this.connection);
+            DataSet dataSet = new DataSet();
+            data.Fill(dataSet);
+            return dataSet.Tables[0];
+        }
         public DataTable get_material_product(int id)
         {
             SqlDataAdapter data = new SqlDataAdapter($@"select MaterialID,Material.Title as MaterialTitle,Count from ProductMaterial
@@ -86,13 +76,45 @@ namespace WindowsFormsApp1
         }
         public List<Product> get_listproduct()
         {
-            DataTable listproduct = getTableListProduct();
-            return create_listproduct(listproduct);
+            SqlDataAdapter data = new SqlDataAdapter($@"select Product.ID, Product.Title,ProductType.Title,ArticleNumber,Image,MinCostForAgent from Product
+                                                    INNER JOIN ProductType
+                                                    on ProductType.ID = Product.ProductTypeID", this.connection);
+            DataSet dataSet = new DataSet();
+            data.Fill(dataSet);
+            return create_listproduct(dataSet.Tables[0]);
         }
         public List<Product> get_listproduct(string search)
         {
-            DataTable listproduct = getTableListProduct(search);
-            return create_listproduct(listproduct);
+            SqlDataAdapter data = new SqlDataAdapter($@"select Product.ID, Product.Title,ProductType.Title,ArticleNumber,Image,MinCostForAgent from Product
+                                                    INNER JOIN ProductType
+                                                    on ProductType.ID = Product.ProductTypeID
+                                                    where Product.Title LIKE '%{search}%'", this.connection);
+            DataSet dataSet = new DataSet();
+            data.Fill(dataSet);
+            return create_listproduct(dataSet.Tables[0]);
+        }
+        
+        public List<Product> get_listproduct(string search,string orderby)
+        {
+            SqlDataAdapter data = new SqlDataAdapter($@"select Product.ID, Product.Title,ProductType.Title,ArticleNumber,Image,MinCostForAgent from Product
+                                                    INNER JOIN ProductType
+                                                    on ProductType.ID = Product.ProductTypeID
+                                                    where Product.Title LIKE '%{search}%'
+                                                    ORDER BY {orderby}", this.connection);
+            DataSet dataSet = new DataSet();
+            data.Fill(dataSet);
+            return create_listproduct(dataSet.Tables[0]);
+        }
+        public List<Product> get_listproduct(string search, string orderby,string filter)
+        {
+            SqlDataAdapter data = new SqlDataAdapter($@"select Product.ID, Product.Title,ProductType.Title,ArticleNumber,Image,MinCostForAgent from Product
+                                                    INNER JOIN ProductType
+                                                    on ProductType.ID = Product.ProductTypeID
+                                                    where Product.Title LIKE '%{search}%' and {filter}
+                                                    ORDER BY {orderby}", this.connection);
+            DataSet dataSet = new DataSet();
+            data.Fill(dataSet);
+            return create_listproduct(dataSet.Tables[0]);
         }
         public DataTable get_listTypeProduct()
         {
