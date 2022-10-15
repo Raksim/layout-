@@ -86,12 +86,12 @@ namespace WindowsFormsApp1
                 case "remove":
                     Func<bool> d = () =>
                     {
-                        if (MessageBox.Show("Удалить эту продукцию", "Выбор", MessageBoxButtons.YesNo) == DialogResult.Yes ? false : true)
+                        if (MessageBox.Show("Удалить эту продукцию", "Выбор", MessageBoxButtons.YesNo,MessageBoxIcon.Question) == DialogResult.Yes ? false : true)
                         {
                             return false;
                         }
-                        flowLayoutPanel1.Controls.Clear();
                         this.DB.remove_product(Convert.ToInt32(((Panel)sender).Name));
+                        flowLayoutPanel1.Controls.Clear();
                         this.refresh();
                         return true;
                     };

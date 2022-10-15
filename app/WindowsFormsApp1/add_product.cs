@@ -33,19 +33,29 @@ namespace WindowsFormsApp1
 
         private void button1_Click(object sender, EventArgs e)
         {
-            if (openFileDialog1.FileName != "openFileDialog1")
+            Func<bool> f = () =>
             {
-                File.Copy(openFileDialog1.FileName, $"./products/paper_{Directory.GetFiles("./products").Length}.jpeg");
-            }
-            this.database.add_product(
-                textBox1.Text,
-                (int)comboBox1.SelectedValue,
-                Convert.ToInt32(numericUpDown3.Value),
-                textBox3.TextLength !=0 ? textBox3.Text:null,
-                openFileDialog1.FileName != "openFileDialog1" ? $"/products/paper_{Directory.GetFiles("./products").Length-1}.jpeg" : null,
-                Convert.ToInt32(numericUpDown1.Value),
-                numericUpDown2.Value);
-            MessageBox.Show("Продукция добавленна");
+                if (textBox1.Text.Length == 0)
+                {
+                    MessageBox.Show("Введите название продукции","Ошибка",MessageBoxButtons.OK,MessageBoxIcon.Error);
+                    return false;
+                }
+                if (openFileDialog1.FileName != "openFileDialog1")
+                {
+                    File.Copy(openFileDialog1.FileName, $"./products/paper_{Directory.GetFiles("./products").Length}.jpeg");
+                }
+                this.database.add_product(
+                    textBox1.Text,
+                    (int)comboBox1.SelectedValue,
+                    Convert.ToInt32(numericUpDown3.Value),
+                    textBox3.TextLength != 0 ? textBox3.Text : null,
+                    openFileDialog1.FileName != "openFileDialog1" ? $"/products/paper_{Directory.GetFiles("./products").Length - 1}.jpeg" : null,
+                    Convert.ToInt32(numericUpDown1.Value),
+                    numericUpDown2.Value);
+                MessageBox.Show("Продукция добавленна");
+                return true;
+            };
+            f();
         }
 
         private void add_product_FormClosed(object sender, FormClosedEventArgs e)
