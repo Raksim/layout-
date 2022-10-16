@@ -50,7 +50,69 @@ namespace WindowsFormsApp1
             }
             return list_product;
         }
-        
+        private List<Agent> create_listagent(DataTable listagent)
+        {
+            List<Agent> list_agent = new List<Agent>();
+            foreach (DataRow stream in listagent.Rows)
+            {
+                int Amount_sales = getListSalesAgent((int)stream[0]);
+                list_agent.Add(new Agent((int)stream[0],
+                    (string)stream[1],
+                    (string)stream[2],
+                    stream[3].GetType() != typeof(string) ? "" : stream[3].ToString(),
+                    (string)stream[4],
+                    stream[5].GetType() != typeof(string) ? "" : stream[5].ToString(),
+                    stream[6].GetType() != typeof(string) ? "" : stream[6].ToString(),
+                    (string)stream[7],
+                    stream[8].GetType() != typeof(string) ? "" : stream[8].ToString(),
+                    stream[9].GetType() != typeof(string) ? "./picture.png" : stream[9].ToString(),
+                    (int)stream[10],
+                    Amount_sales));
+            }
+            return list_agent;
+        }
+        private int getListSalesAgent(int idagent)
+        {
+            this.cmd.CommandText = $@"select AgentID,SUM(ProductCount) as Amount_sales from ProductSale
+                        where AgentID = {idagent}
+                        GROUP BY AgentID";
+            object q = this.cmd.ExecuteScalar();
+            int count = 0;
+            if (q != null)
+            {
+                count = (int)q;
+            }
+            return count;
+        }
+
+        public List<Agent> get_listagent(string search,string ORDER_BY,string filter)
+        {
+            SqlDataAdapter data = new SqlDataAdapter($@"select Agent.ID,Agent.Title,AgentType.Title,Address,INN,KPP,DirectorName,Phone,Email,Logo,Priority from Agent
+                                                        inner join AgentType on Agent.AgentTypeID = AgentType.ID
+                                                        where Agent.Title LIKE '%{search}%' and {filter}    
+                                                        ORDER BY {ORDER_BY}", this.connection);
+            DataSet dataSet = new DataSet();
+            data.Fill(dataSet);
+            return create_listagent(dataSet.Tables[0]);
+        }
+        public List<Agent> get_listagent(string search, string ORDER_BY)
+        {
+            SqlDataAdapter data = new SqlDataAdapter($@"select Agent.ID,Agent.Title,AgentType.Title,Address,INN,KPP,DirectorName,Phone,Email,Logo,Priority from Agent
+                                                        inner join AgentType on Agent.AgentTypeID = AgentType.ID
+                                                        where Agent.Title LIKE '%{search}%'
+                                                        ORDER BY {ORDER_BY}", this.connection);
+            DataSet dataSet = new DataSet();
+            data.Fill(dataSet);
+            return create_listagent(dataSet.Tables[0]);
+        }
+
+        public DataTable get_agenttype()
+        {
+            SqlDataAdapter data = new SqlDataAdapter($@"select * from AgentType", this.connection);
+            DataSet dataSet = new DataSet();
+            data.Fill(dataSet);
+            return dataSet.Tables[0];
+        }
         public DataTable get_producttype()
         {
             SqlDataAdapter data = new SqlDataAdapter($@"select * from ProductType", this.connection);
@@ -83,17 +145,6 @@ namespace WindowsFormsApp1
             data.Fill(dataSet);
             return create_listproduct(dataSet.Tables[0]);
         }
-        public List<Product> get_listproduct(string search)
-        {
-            SqlDataAdapter data = new SqlDataAdapter($@"select Product.ID, Product.Title,ProductType.Title,ArticleNumber,Image,MinCostForAgent from Product
-                                                    INNER JOIN ProductType
-                                                    on ProductType.ID = Product.ProductTypeID
-                                                    where Product.Title LIKE '%{search}%'", this.connection);
-            DataSet dataSet = new DataSet();
-            data.Fill(dataSet);
-            return create_listproduct(dataSet.Tables[0]);
-        }
-        
         public List<Product> get_listproduct(string search,string orderby)
         {
             SqlDataAdapter data = new SqlDataAdapter($@"select Product.ID, Product.Title,ProductType.Title,ArticleNumber,Image,MinCostForAgent from Product

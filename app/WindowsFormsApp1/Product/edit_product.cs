@@ -37,15 +37,30 @@ namespace WindowsFormsApp1
         {
             Func<bool> n = () =>
             {
+                if (textBox1.TextLength == 0)
+                {
+                    MessageBox.Show("Введите название продукции","Ошибка",MessageBoxButtons.OK,MessageBoxIcon.Error);
+                    return false;
+                }
                 if (MessageBox.Show("Изменить эту продукцию", "Выбор", MessageBoxButtons.YesNo) == DialogResult.Yes ? false : true)
                 {
                     return false;
                 }
+                string img = label6.Text;
                 if (openFileDialog1.FileName != "openFileDialog1")
                 {
-                    File.Copy(openFileDialog1.FileName, $"./products/paper_{Directory.GetFiles("./products").Length}.jpeg");
+                    try
+                    {
+                        File.Copy(openFileDialog1.FileName, $"./products/paper_{Directory.GetFiles("./products").Length}.jpeg");
+                    }
+                    catch
+                    {
+                        MessageBox.Show("Это изображение нельзя использовать", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        return false;
+                    }
+                    img = $"/products/paper_{Directory.GetFiles("./products").Length - 1}.jpeg";
                 }
-                this.database.edit_product(product.id, textBox1.Text, (int)comboBox1.SelectedValue, Convert.ToInt32(numericUpDown3.Value), $"/products/paper_{Directory.GetFiles("./products").Length - 1}.jpeg", numericUpDown2.Value);
+                this.database.edit_product(product.id, textBox1.Text, (int)comboBox1.SelectedValue, Convert.ToInt32(numericUpDown3.Value), img, numericUpDown2.Value);
                 this.Dispose();
                 select_mode.Show();
                 return true;

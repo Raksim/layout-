@@ -65,6 +65,25 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Agent.cs" />
+    <Compile Include="Agent\select_agents.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Agent\select_agents.Designer.cs">
+      <DependentUpon>select_agents.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Agent\select_mode_agent.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Agent\select_mode_agent.Designer.cs">
+      <DependentUpon>select_mode_agent.cs</DependentUpon>
+    </Compile>
+    <Compile Include="products_and_agents.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="products_and_agents.Designer.cs">
+      <DependentUpon>products_and_agents.cs</DependentUpon>
+    </Compile>
     <Compile Include="Product\add_product.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -93,12 +112,21 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Product\select_mode.cs">
+    <Compile Include="Product\select_mode_product.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Product\select_mode.Designer.cs">
-      <DependentUpon>select_mode.cs</DependentUpon>
+    <Compile Include="Product\select_mode_product.Designer.cs">
+      <DependentUpon>select_mode_product.cs</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="Agent\select_agents.resx">
+      <DependentUpon>select_agents.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Agent\select_mode_agent.resx">
+      <DependentUpon>select_mode_agent.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="products_and_agents.resx">
+      <DependentUpon>products_and_agents.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Product\add_product.resx">
       <DependentUpon>add_product.cs</DependentUpon>
     </EmbeddedResource>
@@ -120,8 +148,8 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <EmbeddedResource Include="Product\select_mode.resx">
-      <DependentUpon>select_mode.cs</DependentUpon>
+    <EmbeddedResource Include="Product\select_mode_product.resx">
+      <DependentUpon>select_mode_product.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -157,5 +185,6 @@
       <Install>false</Install>
     </BootstrapperPackage>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
