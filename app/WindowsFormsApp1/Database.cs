@@ -74,7 +74,7 @@ namespace WindowsFormsApp1
         private int getListSalesAgent(int idagent)
         {
             this.cmd.CommandText = $@"select AgentID,SUM(ProductCount) as Amount_sales from ProductSale
-                        where AgentID = {idagent}
+                        where AgentID = {idagent} and ProductSale.SaleDate > DATEADD(DAY,-365,GETDATE())
                         GROUP BY AgentID";
             object q = this.cmd.ExecuteScalar();
             int count = 0;
