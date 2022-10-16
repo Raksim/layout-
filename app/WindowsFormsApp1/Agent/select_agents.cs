@@ -43,7 +43,7 @@ namespace WindowsFormsApp1
             contaner.BorderStyle = BorderStyle.FixedSingle;
             contaner.Name = id.ToString();
             contaner.Click += showid;
-            contaner.Size = new Size(503, 89);
+            contaner.Size = new Size(500, 89);
             img.Location = new Point(0, 0);
             img.Size = new Size(119, 86);
             img.SizeMode = PictureBoxSizeMode.Zoom;
@@ -75,7 +75,36 @@ namespace WindowsFormsApp1
 
         private void showid(object sender, EventArgs e)
         {
-            
+            switch (this.mode)
+            {
+                case "remove":
+                    Func<bool> d = () =>
+                    {
+                        if (MessageBox.Show("Удалить агента?", "Выбор", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes ? false : true)
+                        {
+                            return false;
+                        }
+                        this.DB.remove_agent(Convert.ToInt32(((Panel)sender).Name));
+                        flowLayoutPanel1.Controls.Clear();
+                        this.refresh();
+                        return true;
+                    };
+                    d();
+                    break;
+                case "edit":
+                    this.Hide();
+                    foreach (Agent n in this.listagents)
+                    {
+                        if (n.id == Convert.ToInt32(((Panel)sender).Name))
+                        {
+                            new edit_agent(this.DB, this.select_mode,n).Show();
+                            this.Dispose();
+                        }
+                    }
+                    break;
+                default:
+                    break;
+            }
         }
 
         private void refresh()

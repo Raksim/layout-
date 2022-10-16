@@ -31,5 +31,23 @@ namespace WindowsFormsApp1
         {
             this.Main.Show();
         }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+            new add_agent(this.database,this).Show();
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+            new select_agents(this.database, this, "remove").Show();
+        }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+            new select_agents(this.database, this, "edit").Show();
+        }
     }
 }

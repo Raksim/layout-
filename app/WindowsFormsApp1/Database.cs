@@ -59,13 +59,13 @@ namespace WindowsFormsApp1
                 list_agent.Add(new Agent((int)stream[0],
                     (string)stream[1],
                     (string)stream[2],
-                    stream[3].GetType() != typeof(string) ? "" : stream[3].ToString(),
+                    stream[3].ToString() == "" ? "" : stream[3].ToString(),
                     (string)stream[4],
-                    stream[5].GetType() != typeof(string) ? "" : stream[5].ToString(),
-                    stream[6].GetType() != typeof(string) ? "" : stream[6].ToString(),
+                    stream[5].ToString() == "" ? "" : stream[5].ToString(),
+                    stream[6].ToString() == "" ? "" : stream[6].ToString(),
                     (string)stream[7],
-                    stream[8].GetType() != typeof(string) ? "" : stream[8].ToString(),
-                    stream[9].GetType() != typeof(string) ? "./picture.png" : stream[9].ToString(),
+                    stream[8].ToString() == "" ? "" : stream[8].ToString(),
+                    stream[9].ToString() == "" ? "./picture.png" : stream[9].ToString(),
                     (int)stream[10],
                     Amount_sales));
             }
@@ -89,7 +89,7 @@ namespace WindowsFormsApp1
         {
             SqlDataAdapter data = new SqlDataAdapter($@"select Agent.ID,Agent.Title,AgentType.Title,Address,INN,KPP,DirectorName,Phone,Email,Logo,Priority from Agent
                                                         inner join AgentType on Agent.AgentTypeID = AgentType.ID
-                                                        where Agent.Title LIKE '%{search}%' and {filter}    
+                                                        where (Agent.Title LIKE '%{search}%' or Agent.Email LIKE '%{search}%' or Agent.Phone LIKE '%{search}%') and {filter}    
                                                         ORDER BY {ORDER_BY}", this.connection);
             DataSet dataSet = new DataSet();
             data.Fill(dataSet);
@@ -99,7 +99,7 @@ namespace WindowsFormsApp1
         {
             SqlDataAdapter data = new SqlDataAdapter($@"select Agent.ID,Agent.Title,AgentType.Title,Address,INN,KPP,DirectorName,Phone,Email,Logo,Priority from Agent
                                                         inner join AgentType on Agent.AgentTypeID = AgentType.ID
-                                                        where Agent.Title LIKE '%{search}%'
+                                                        where Agent.Title LIKE '%{search}%' or Agent.Email LIKE '%{search}%' or Agent.Phone LIKE '%{search}%'
                                                         ORDER BY {ORDER_BY}", this.connection);
             DataSet dataSet = new DataSet();
             data.Fill(dataSet);
@@ -198,6 +198,22 @@ namespace WindowsFormsApp1
         public void remove_material_product(int product, int material)
         {
             this.cmd.CommandText = $@"DELETE FROM ProductMaterial where ProductID = {product} AND MaterialID = {material}";
+            this.cmd.ExecuteNonQuery();
+        }
+        public void add_agent(string title,int typeid,string address,string inn,string kpp,string directorname,string phone,string email,string logo,int priority)
+        {
+            this.cmd.CommandText = $@"INSERT INTO Agent
+                                    VALUES ('{title}',{typeid},'{address}','{inn}','{kpp}','{directorname}','{phone}','{email}','{logo}',{priority})";
+            this.cmd.ExecuteNonQuery();
+        }
+        public void remove_agent(int id)
+        {
+            this.cmd.CommandText = $@"DELETE FROM Agent WHERE ID = {id}";
+            this.cmd.ExecuteNonQuery();
+        }
+        public void edit_agent(int id, string title, int typeid, string address, string inn, string kpp, string directorname, string phone, string email, string logo, int priority)
+        {
+            this.cmd.CommandText = $@"UPDATE Agent set Title = '{title}',AgentTypeID = {typeid},Address = '{address}',INN = '{inn}',KPP = '{kpp}',DirectorName = '{directorname}',Phone = '{phone}',Email = '{email}',Logo = '{logo}',Priority = {priority}  WHERE ID = {id}";
             this.cmd.ExecuteNonQuery();
         }
     }

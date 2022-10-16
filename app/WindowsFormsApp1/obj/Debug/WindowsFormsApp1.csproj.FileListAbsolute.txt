@@ -18,3 +18,5 @@ C:\Users\Я\Desktop\Тосенко(Совместно)\ex31_1-master\data\app\Wi
 C:\Users\Я\Desktop\Тосенко(Совместно)\ex31_1-master\data\app\WindowsFormsApp1\obj\Debug\WindowsFormsApp1.select_mode_product.resources
 C:\Users\Я\Desktop\Тосенко(Совместно)\ex31_1-master\data\app\WindowsFormsApp1\obj\Debug\WindowsFormsApp1.select_agents.resources
 C:\Users\Я\Desktop\Тосенко(Совместно)\ex31_1-master\data\app\WindowsFormsApp1\obj\Debug\WindowsFormsApp1.select_mode_agent.resources
+C:\Users\Я\Desktop\Тосенко(Совместно)\ex31_1-master\data\app\WindowsFormsApp1\obj\Debug\WindowsFormsApp1.add_agent.resources
+C:\Users\Я\Desktop\Тосенко(Совместно)\ex31_1-master\data\app\WindowsFormsApp1\obj\Debug\WindowsFormsApp1.edit_agent.resources

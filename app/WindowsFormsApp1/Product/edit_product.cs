@@ -70,8 +70,10 @@ namespace WindowsFormsApp1
 
         private void button2_Click(object sender, EventArgs e)
         {
-            openFileDialog1.ShowDialog();
-            label6.Text = openFileDialog1.SafeFileName;
+            if (openFileDialog1.ShowDialog() != DialogResult.Cancel)
+            {
+                label6.Text = openFileDialog1.SafeFileName;
+            }
         }
 
         private void edit_product_FormClosed(object sender, FormClosedEventArgs e)
