@@ -5,4 +5,5 @@
 
 ![logo](https://lh3.googleusercontent.com/drive-viewer/AJc5JmSvHtsxwnp9Q_1YhHnEI4-AYbbIfUepxSGoVBRLwHNKOqXkthy2KwomF2_u5y-0t5npS97hoAk=w1366-h696)
 
-Что бы ознакомиться с [руководством пользователя](https://github.com/Raksim/layout-/blob/master/%D0%A0%D1%83%D0%BA%D0%BE%D0%B2%D0%BE%D0%B4%D1%81%D1%82%D0%B2%D0%BE%20%D0%BF%D0%BE%D0%BB%D1%8C%D0%B7%D0%BE%D0%B2%D0%B0%D1%82%D0%B5%D0%BB%D1%8F.pdf)
+- Что бы ознакомиться с [руководством пользователя](https://github.com/Raksim/layout-/blob/master/%D0%A0%D1%83%D0%BA%D0%BE%D0%B2%D0%BE%D0%B4%D1%81%D1%82%D0%B2%D0%BE%20%D0%BF%D0%BE%D0%BB%D1%8C%D0%B7%D0%BE%D0%B2%D0%B0%D1%82%D0%B5%D0%BB%D1%8F.pdf)
+- Что бы ознакомиться с [UseCase](https://github.com/Raksim/layout-/blob/master/UseCase.pdf)
