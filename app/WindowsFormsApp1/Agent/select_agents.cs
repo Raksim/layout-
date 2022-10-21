@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Data.SqlClient;
 
 namespace WindowsFormsApp1
 {
@@ -82,6 +83,11 @@ namespace WindowsFormsApp1
                     {
                         if (MessageBox.Show("Удалить агента?", "Выбор", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes ? false : true)
                         {
+                            return false;
+                        }
+                        if (Convert.ToInt32(((Panel)sender).Controls[2].Text) != 0)
+                        {
+                            MessageBox.Show("У агента есть информация о реализованной продукции, удаление запрещается","Ошибка",MessageBoxButtons.OK,MessageBoxIcon.Error);
                             return false;
                         }
                         this.DB.remove_agent(Convert.ToInt32(((Panel)sender).Name));

@@ -90,6 +90,11 @@ namespace WindowsFormsApp1
                         {
                             return false;
                         }
+                        if (this.DB.get_count_saleproduct(Convert.ToInt32(((Panel)sender).Name)) != 0)
+                        {
+                            MessageBox.Show("По этопу продукту есть информация его реализации, удаление запрещается", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            return false;
+                        }
                         this.DB.remove_product(Convert.ToInt32(((Panel)sender).Name));
                         flowLayoutPanel1.Controls.Clear();
                         this.refresh();

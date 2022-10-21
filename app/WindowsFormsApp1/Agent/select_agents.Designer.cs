@@ -37,10 +37,10 @@
             this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.contextMenuStrip2 = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.всеТипыToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.возрастаниюToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.убываниюToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.всеТипыToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.contextMenuStrip2.SuspendLayout();
             this.contextMenuStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -116,6 +116,12 @@
             this.contextMenuStrip2.ShowImageMargin = false;
             this.contextMenuStrip2.Size = new System.Drawing.Size(100, 26);
             // 
+            // всеТипыToolStripMenuItem
+            // 
+            this.всеТипыToolStripMenuItem.Name = "всеТипыToolStripMenuItem";
+            this.всеТипыToolStripMenuItem.Size = new System.Drawing.Size(99, 22);
+            this.всеТипыToolStripMenuItem.Text = "Все типы";
+            // 
             // contextMenuStrip1
             // 
             this.contextMenuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -139,12 +145,6 @@
             this.убываниюToolStripMenuItem.Text = "Убыванию";
             this.убываниюToolStripMenuItem.Click += new System.EventHandler(this.убываниюToolStripMenuItem_Click);
             // 
-            // всеТипыToolStripMenuItem
-            // 
-            this.всеТипыToolStripMenuItem.Name = "всеТипыToolStripMenuItem";
-            this.всеТипыToolStripMenuItem.Size = new System.Drawing.Size(99, 22);
-            this.всеТипыToolStripMenuItem.Text = "Все типы";
-            // 
             // select_agents
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -158,6 +158,8 @@
             this.Controls.Add(this.textBox1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
             this.Name = "select_agents";
             this.Text = "Лапушок";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.select_agents_FormClosed);

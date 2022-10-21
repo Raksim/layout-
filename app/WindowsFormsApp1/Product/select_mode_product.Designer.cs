@@ -98,6 +98,8 @@
             this.Controls.Add(this.button1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
             this.Name = "select_mode_product";
             this.Text = "Лопушок";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.select_mode_product_FormClosed);

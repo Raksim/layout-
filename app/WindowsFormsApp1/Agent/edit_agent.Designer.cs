@@ -280,6 +280,8 @@
             this.Controls.Add(this.textBox2);
             this.Controls.Add(this.textBox1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
             this.Name = "edit_agent";
             this.Text = "Лапушок";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.edit_agent_FormClosed);

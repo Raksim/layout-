@@ -136,6 +136,11 @@ namespace WindowsFormsApp1
             data.Fill(dataSet);
             return dataSet.Tables[0];
         }
+       public int get_count_saleproduct(int idproduct)
+        {
+            this.cmd.CommandText = $@"select Count(ProductID) from ProductSale where ProductID = {idproduct}";
+            return (int)this.cmd.ExecuteScalar();
+        }
         public List<Product> get_listproduct()
         {
             SqlDataAdapter data = new SqlDataAdapter($@"select Product.ID, Product.Title,ProductType.Title,ArticleNumber,Image,MinCostForAgent from Product

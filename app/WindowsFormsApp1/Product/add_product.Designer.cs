@@ -227,6 +227,8 @@
             this.Controls.Add(this.button1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
             this.Name = "add_product";
             this.Text = "Лопушок";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.add_product_FormClosed);

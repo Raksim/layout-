@@ -86,6 +86,8 @@
             this.Controls.Add(this.button1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
             this.Name = "select_mode_agent";
             this.Text = "Лапушок";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.select_mode_agent_FormClosed);
