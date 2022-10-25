@@ -49,16 +49,18 @@ namespace WindowsFormsApp1
                     MessageBox.Show("Введите номер телефона", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return false;
                 }
+                string img = "";
                 if (openFileDialog1.FileName != "openFileDialog1")
                 {
-                    File.Copy(openFileDialog1.FileName, $"./agents/agent_{Directory.GetFiles("./agents").Length}.jpeg");
+                    img = $"./agents/agent_{Directory.GetFiles("./agents").Length}.jpeg";
+                    File.Copy(openFileDialog1.FileName, img);
                 }
                 this.database.add_agent(textBox1.Text,
                     (int)comboBox1.SelectedValue,
                     textBox2.Text, textBox3.Text,
                     textBox4.Text, textBox5.Text,
                     textBox6.Text, textBox7.Text,
-                    openFileDialog1.FileName != "openFileDialog1" ? $"./agents/agent_{Directory.GetFiles("./agents").Length - 1}.jpeg" : null,
+                    img != "" ? img : null,
                     (int)numericUpDown1.Value);
                 MessageBox.Show("Агент добавлен");
                 this.Dispose();

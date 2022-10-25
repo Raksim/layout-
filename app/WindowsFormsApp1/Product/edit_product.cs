@@ -49,16 +49,16 @@ namespace WindowsFormsApp1
                 string img = label6.Text;
                 if (openFileDialog1.FileName != "openFileDialog1")
                 {
+                    img = $"./products/paper_{Directory.GetFiles("./products").Length}.jpeg";
                     try
                     {
-                        File.Copy(openFileDialog1.FileName, $"./products/paper_{Directory.GetFiles("./products").Length}.jpeg");
+                        File.Copy(openFileDialog1.FileName, img);
                     }
                     catch
                     {
                         MessageBox.Show("Это изображение нельзя использовать", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         return false;
                     }
-                    img = $"/products/paper_{Directory.GetFiles("./products").Length - 1}.jpeg";
                 }
                 this.database.edit_product(product.id, textBox1.Text, (int)comboBox1.SelectedValue, Convert.ToInt32(numericUpDown3.Value), img, numericUpDown2.Value);
                 this.Dispose();

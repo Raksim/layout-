@@ -16,6 +16,8 @@ namespace WindowsFormsApp1
         public Database DB;
         public Form select_mode;
         public List<Agent> listagents;
+        private int countpages;
+        private int page;
         private string mode;
         private string search = "";
         private string ORDER_BY = "Agent.ID ASC";
@@ -116,16 +118,66 @@ namespace WindowsFormsApp1
         private void refresh()
         {
             flowLayoutPanel1.Controls.Clear();
+            page = 0;
             if (filter.Length !=0)
             {
-                this.listagents = this.DB.get_listagent(search, ORDER_BY, filter);
-                listagents.ForEach(item => this.create_contener_agent(item.id, item.title, item.type_agent, item.Phone, item.Logo, item.Amount_sales));
+                this.listagents = this.DB.get_listagent(page,search, ORDER_BY, filter);
+                this.countpages = (int)Math.Ceiling((decimal)this.DB.getcount_listagent(search, filter)/ (decimal)4);
             }
             else
             {
-                this.listagents = this.DB.get_listagent(search, ORDER_BY);
-                listagents.ForEach(item => this.create_contener_agent(item.id, item.title, item.type_agent, item.Phone, item.Logo, item.Amount_sales));
+                this.listagents = this.DB.get_listagent(page,search, ORDER_BY);
+                this.countpages = (int)Math.Ceiling((decimal)this.DB.getcount_listagent(search)/(decimal)4);
             }
+            listagents.ForEach(item => this.create_contener_agent(item.id, item.title, item.type_agent, item.Phone, item.Logo, item.Amount_sales));
+            refresh_pages();
+        }
+        private void refresh_page()
+        {
+            flowLayoutPanel1.Controls.Clear();
+            if (filter.Length != 0)
+            {
+                this.listagents = this.DB.get_listagent(page, search, ORDER_BY, filter);
+            }
+            else
+            {
+                this.listagents = this.DB.get_listagent(page, search, ORDER_BY);
+            }
+            this.listagents.ForEach(item => this.create_contener_agent(item.id, item.title, item.type_agent, item.Phone, item.Logo, item.Amount_sales));
+        }
+        private void refresh_pages()
+        {
+            flowLayoutPanel3.Controls.Clear();
+            for (int i = 1; i <= countpages; i++)
+            {
+                Label page = new Label();
+                if (i == 1)
+                {
+                    page.Font = new Font("Microsoft Sans Serif", (float)8.25, FontStyle.Underline);
+                }
+                page.AutoSize = true;
+                page.Margin = new Padding(0);
+                page.Text = $"{i}";
+                page.Click += page_Click;
+                flowLayoutPanel3.Controls.Add(page);
+            }
+        }
+        private void page_Click(object sender, EventArgs e)
+        {
+            Func<bool> n = () =>
+            {
+                int select_page = Convert.ToInt32(((Label)sender).Text) - 1;
+                if (select_page == page)
+                {
+                    return false;
+                }
+                flowLayoutPanel3.Controls[page].Font = new Font("Microsoft Sans Serif", (float)8.25);
+                page = Convert.ToInt32(((Label)sender).Text) - 1;
+                flowLayoutPanel3.Controls[page].Font = new Font("Microsoft Sans Serif", (float)8.25, FontStyle.Underline);
+                refresh_page();
+                return true;
+            };
+            n();
         }
 
         private void select_agents_FormClosed(object sender, FormClosedEventArgs e)
@@ -135,6 +187,8 @@ namespace WindowsFormsApp1
 
         private void comboBox2_SelectedIndexChanged(object sender, EventArgs e)
         {
+            textBox1.Enabled = false;
+            comboBox1.Enabled = false;
             contextMenuStrip2.Items.Clear();
             contextMenuStrip2.Items.Add("Все типы",null, this.selectmenu);
             switch (comboBox2.SelectedIndex)
@@ -151,6 +205,9 @@ namespace WindowsFormsApp1
         }
         private void selectmenu(object sender, EventArgs e)
         {
+            textBox1.Enabled = true;
+            comboBox1.Enabled = true;
+            contextMenuStrip2.Close();
             if (((ToolStripItem)sender).Text == "Все типы")
             {
                 this.filter = "";
@@ -200,6 +257,48 @@ namespace WindowsFormsApp1
                 this.search = textBox1.Text;
                 this.refresh();
             }
+        }
+
+        private void label4_Click(object sender, EventArgs e)
+        {
+            Func<bool> n = () =>
+            {
+                flowLayoutPanel3.Controls[page].Font = new Font("Microsoft Sans Serif", (float)8.25);
+                if (this.page == 0)
+                {
+                    this.page = this.countpages - 1;
+                    this.refresh_page();
+                    flowLayoutPanel3.Controls[page].Font = new Font("Microsoft Sans Serif", (float)8.25, FontStyle.Underline);
+                    return true;
+                }
+                this.page -= 1;
+                this.refresh_page();
+                flowLayoutPanel3.Controls[page].Font = new Font("Microsoft Sans Serif", (float)8.25, FontStyle.Underline);
+                return true;
+            };
+            if (flowLayoutPanel3.Controls.Count != 0)
+                n();
+        }
+
+        private void label3_Click(object sender, EventArgs e)
+        {
+            Func<bool> n = () =>
+            {
+                flowLayoutPanel3.Controls[page].Font = new Font("Microsoft Sans Serif", (float)8.25);
+                if (this.page == this.countpages - 1)
+                {
+                    this.page = 0;
+                    this.refresh_page();
+                    flowLayoutPanel3.Controls[page].Font = new Font("Microsoft Sans Serif", (float)8.25, FontStyle.Underline);
+                    return true;
+                }
+                this.page += 1;
+                this.refresh_page();
+                flowLayoutPanel3.Controls[page].Font = new Font("Microsoft Sans Serif", (float)8.25, FontStyle.Underline);
+                return true;
+            };
+            if (flowLayoutPanel3.Controls.Count != 0)
+                n();
         }
     }
 }

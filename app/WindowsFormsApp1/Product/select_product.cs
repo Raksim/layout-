@@ -15,6 +15,8 @@ namespace WindowsFormsApp1
         public Database DB;
         public Form select_mode;
         public List<Product> listproduct;
+        private int countpages;
+        private int page;
         private string mode;
         private string search = "";
         private string ORDER_BY = "ID ASC";
@@ -55,7 +57,7 @@ namespace WindowsFormsApp1
             product_img.Size = new Size(106, 73);
             product_img.Location = new Point(3, 3);
             product_img.SizeMode = PictureBoxSizeMode.Zoom;
-            product_img.Image = Image.FromFile($".{image}");
+            product_img.Image = Image.FromFile(image);
             group_typeandtitle.Size = new Size(250, 20);
             group_typeandtitle.Location = new Point(115, 3);
             articul.Location = new Point(118, 26);
@@ -123,16 +125,66 @@ namespace WindowsFormsApp1
         private void refresh()
         {
             flowLayoutPanel1.Controls.Clear();
+            page = 0;
             if (filter.Length != 0)
             {
-                listproduct = this.DB.get_listproduct(search, ORDER_BY, filter);
-                listproduct.ForEach(item => this.create_container_product(item.id,item.title, item.type_product, item.articul, item.material, item.image, item.price));
+                listproduct = this.DB.get_listproduct(page,search, ORDER_BY, filter);
+                countpages = (int)Math.Ceiling((decimal)this.DB.getcount_listproduct(search,filter)/ (decimal)4);
             }
             else
             {
-                listproduct = this.DB.get_listproduct(search, ORDER_BY);
-                listproduct.ForEach(item => this.create_container_product(item.id,item.title, item.type_product, item.articul, item.material, item.image, item.price));
+                listproduct = this.DB.get_listproduct(page,search, ORDER_BY);
+                countpages = (int)Math.Ceiling((decimal)this.DB.getcount_listproduct(search)/ (decimal)4);
             }
+            listproduct.ForEach(item => this.create_container_product(item.id, item.title, item.type_product, item.articul, item.material, item.image, item.price));
+            refresh_pages();
+        }
+        private void refresh_page()
+        {
+            flowLayoutPanel1.Controls.Clear();
+            if (filter.Length != 0)
+            {
+                listproduct = this.DB.get_listproduct(page, search, ORDER_BY, filter);
+            }
+            else
+            {
+                listproduct = this.DB.get_listproduct(page, search, ORDER_BY);
+            }
+            listproduct.ForEach(item => this.create_container_product(item.id, item.title, item.type_product, item.articul, item.material, item.image, item.price));
+        }
+        private void refresh_pages()
+        {
+            flowLayoutPanel3.Controls.Clear();
+            for (int i = 1;i <= countpages;i++)
+            {
+                Label page = new Label();
+                if (i==1)
+                {
+                    page.Font = new Font("Microsoft Sans Serif", (float)8.25, FontStyle.Underline);
+                }
+                page.AutoSize = true;
+                page.Margin = new Padding(0);
+                page.Text = $"{i}";
+                page.Click += page_Click;
+                flowLayoutPanel3.Controls.Add(page);
+            }
+        }
+        private void page_Click(object sender, EventArgs e)
+        {
+            Func<bool> n = () =>
+             {
+                 int select_page = Convert.ToInt32(((Label)sender).Text) - 1;
+                 if (select_page == page)
+                 {
+                     return false;
+                 }
+                 flowLayoutPanel3.Controls[page].Font = new Font("Microsoft Sans Serif", (float)8.25);
+                 page = Convert.ToInt32(((Label)sender).Text) - 1;
+                 flowLayoutPanel3.Controls[page].Font = new Font("Microsoft Sans Serif", (float)8.25, FontStyle.Underline);
+                 refresh_page();
+                 return true;
+             };
+            n();
         }
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -155,6 +207,8 @@ namespace WindowsFormsApp1
         }
         private void comboBox2_SelectedIndexChanged(object sender, EventArgs e)
         {
+            textBox1.Enabled = false;
+            comboBox1.Enabled = false;
             contextMenuStrip2.Items.Clear();
             switch (comboBox2.SelectedIndex)
             {
@@ -186,6 +240,9 @@ namespace WindowsFormsApp1
         }
         private void selectmenu(object sender, EventArgs e)
         {
+            textBox1.Enabled = true;
+            comboBox1.Enabled = true;
+            contextMenuStrip2.Close();
             this.filter += contextMenuStrip2.Items.IndexOf(((ToolStripItem)sender)) + 1;
             this.refresh();
         }
@@ -203,6 +260,48 @@ namespace WindowsFormsApp1
                 this.search = textBox1.Text;
                 this.refresh();
             }
+        }
+
+        private void label4_Click(object sender, EventArgs e)
+        {
+            Func<bool> n = () =>
+            {
+                flowLayoutPanel3.Controls[page].Font = new Font("Microsoft Sans Serif", (float)8.25);
+                if (this.page == 0)
+                {
+                    this.page = this.countpages-1;
+                    this.refresh_page();
+                    flowLayoutPanel3.Controls[page].Font = new Font("Microsoft Sans Serif", (float)8.25, FontStyle.Underline);
+                    return true;
+                }
+                this.page -= 1;
+                this.refresh_page();
+                flowLayoutPanel3.Controls[page].Font = new Font("Microsoft Sans Serif", (float)8.25, FontStyle.Underline);
+                return true;
+            };
+            if (flowLayoutPanel3.Controls.Count!=0)
+                n();
+        }
+
+        private void label3_Click(object sender, EventArgs e)
+        {
+            Func<bool> n = () =>
+            {
+                flowLayoutPanel3.Controls[page].Font = new Font("Microsoft Sans Serif", (float)8.25);
+                if (this.page == this.countpages-1)
+                {
+                    this.page = 0;
+                    this.refresh_page();
+                    flowLayoutPanel3.Controls[page].Font = new Font("Microsoft Sans Serif", (float)8.25, FontStyle.Underline);
+                    return true;
+                }
+                this.page += 1;
+                this.refresh_page();
+                flowLayoutPanel3.Controls[page].Font = new Font("Microsoft Sans Serif", (float)8.25, FontStyle.Underline);
+                return true;
+            };
+            if (flowLayoutPanel3.Controls.Count != 0)
+                n();
         }
     }
 }

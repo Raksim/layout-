@@ -40,16 +40,18 @@ namespace WindowsFormsApp1
                     MessageBox.Show("Введите название продукции","Ошибка",MessageBoxButtons.OK,MessageBoxIcon.Error);
                     return false;
                 }
+                string img = "";
                 if (openFileDialog1.FileName != "openFileDialog1")
                 {
-                    File.Copy(openFileDialog1.FileName, $"./products/paper_{Directory.GetFiles("./products").Length}.jpeg");
+                    img = $"./products/paper_{Directory.GetFiles("./products").Length}.jpeg";
+                    File.Copy(openFileDialog1.FileName, img);
                 }
                 this.database.add_product(
                     textBox1.Text,
                     (int)comboBox1.SelectedValue,
                     Convert.ToInt32(numericUpDown3.Value),
                     textBox3.TextLength != 0 ? textBox3.Text : null,
-                    openFileDialog1.FileName != "openFileDialog1" ? $"/products/paper_{Directory.GetFiles("./products").Length - 1}.jpeg" : null,
+                    img != "" ? img : null,
                     Convert.ToInt32(numericUpDown1.Value),
                     numericUpDown2.Value);
                 MessageBox.Show("Продукция добавленна");

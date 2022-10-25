@@ -46,7 +46,7 @@ namespace WindowsFormsApp1
             foreach (DataRow stream in listproduct.Rows)
             {
                 string Material = getTableListMaterial((int)stream[0]);
-                list_product.Add(new Product((int)stream[0], (string)stream[1], stream[2].ToString(), Convert.ToInt32(stream[3]), Material, stream[4].ToString() != "" ? stream[4].ToString() : "/picture.png", (decimal)stream[5]));
+                list_product.Add(new Product((int)stream[0], (string)stream[1], stream[2].ToString(), Convert.ToInt32(stream[3]), Material, stream[4].ToString() != "" ? stream[4].ToString() : "./picture.png", (decimal)stream[5]));
             }
             return list_product;
         }
@@ -85,22 +85,24 @@ namespace WindowsFormsApp1
             return count;
         }
 
-        public List<Agent> get_listagent(string search,string ORDER_BY,string filter)
+        public List<Agent> get_listagent(int page,string search,string ORDER_BY,string filter)
         {
             SqlDataAdapter data = new SqlDataAdapter($@"select Agent.ID,Agent.Title,AgentType.Title,Address,INN,KPP,DirectorName,Phone,Email,Logo,Priority from Agent
                                                         inner join AgentType on Agent.AgentTypeID = AgentType.ID
                                                         where (Agent.Title LIKE '%{search}%' or Agent.Email LIKE '%{search}%' or Agent.Phone LIKE '%{search}%') and {filter}    
-                                                        ORDER BY {ORDER_BY}", this.connection);
+                                                        ORDER BY {ORDER_BY}
+                                                        OFFSET 4*{page} ROWS FETCH NEXT 4 ROWS ONLY", this.connection);
             DataSet dataSet = new DataSet();
             data.Fill(dataSet);
             return create_listagent(dataSet.Tables[0]);
         }
-        public List<Agent> get_listagent(string search, string ORDER_BY)
+        public List<Agent> get_listagent(int page,string search, string ORDER_BY)
         {
             SqlDataAdapter data = new SqlDataAdapter($@"select Agent.ID,Agent.Title,AgentType.Title,Address,INN,KPP,DirectorName,Phone,Email,Logo,Priority from Agent
                                                         inner join AgentType on Agent.AgentTypeID = AgentType.ID
                                                         where Agent.Title LIKE '%{search}%' or Agent.Email LIKE '%{search}%' or Agent.Phone LIKE '%{search}%'
-                                                        ORDER BY {ORDER_BY}", this.connection);
+                                                        ORDER BY {ORDER_BY}
+                                                        OFFSET 4*{page} ROWS FETCH NEXT 4 ROWS ONLY", this.connection);
             DataSet dataSet = new DataSet();
             data.Fill(dataSet);
             return create_listagent(dataSet.Tables[0]);
@@ -136,42 +138,63 @@ namespace WindowsFormsApp1
             data.Fill(dataSet);
             return dataSet.Tables[0];
         }
-       public int get_count_saleproduct(int idproduct)
+        public int get_count_saleproduct(int idproduct)
         {
             this.cmd.CommandText = $@"select Count(ProductID) from ProductSale where ProductID = {idproduct}";
             return (int)this.cmd.ExecuteScalar();
         }
-        public List<Product> get_listproduct()
-        {
-            SqlDataAdapter data = new SqlDataAdapter($@"select Product.ID, Product.Title,ProductType.Title,ArticleNumber,Image,MinCostForAgent from Product
-                                                    INNER JOIN ProductType
-                                                    on ProductType.ID = Product.ProductTypeID", this.connection);
-            DataSet dataSet = new DataSet();
-            data.Fill(dataSet);
-            return create_listproduct(dataSet.Tables[0]);
-        }
-        public List<Product> get_listproduct(string search,string orderby)
+        public List<Product> get_listproduct(int page,string search,string orderby)
         {
             SqlDataAdapter data = new SqlDataAdapter($@"select Product.ID, Product.Title,ProductType.Title,ArticleNumber,Image,MinCostForAgent from Product
                                                     INNER JOIN ProductType
                                                     on ProductType.ID = Product.ProductTypeID
                                                     where Product.Title LIKE '%{search}%'
-                                                    ORDER BY {orderby}", this.connection);
+                                                    ORDER BY {orderby}
+                                                    OFFSET 4*{page} ROWS FETCH NEXT 4 ROWS ONLY", this.connection);
             DataSet dataSet = new DataSet();
             data.Fill(dataSet);
             return create_listproduct(dataSet.Tables[0]);
         }
-        public List<Product> get_listproduct(string search, string orderby,string filter)
+        public List<Product> get_listproduct(int page,string search, string orderby,string filter)
         {
             SqlDataAdapter data = new SqlDataAdapter($@"select Product.ID, Product.Title,ProductType.Title,ArticleNumber,Image,MinCostForAgent from Product
                                                     INNER JOIN ProductType
                                                     on ProductType.ID = Product.ProductTypeID
                                                     where Product.Title LIKE '%{search}%' and {filter}
-                                                    ORDER BY {orderby}", this.connection);
+                                                    ORDER BY {orderby}
+                                                    OFFSET 4*{page} ROWS FETCH NEXT 4 ROWS ONLY", this.connection);
             DataSet dataSet = new DataSet();
             data.Fill(dataSet);
             return create_listproduct(dataSet.Tables[0]);
         }
+
+        public int getcount_listproduct(string search)
+        {
+            this.cmd.CommandText = $@"select Count(*) from Product
+                                      where Product.Title LIKE '%{search}%'";
+            
+            return (int)this.cmd.ExecuteScalar();
+        }
+        public int getcount_listproduct(string search, string filter)
+        {
+            this.cmd.CommandText = $@"select Count(*) from Product
+                                      where Product.Title LIKE '%{search}%' and {filter}";
+            return (int)this.cmd.ExecuteScalar();
+        }
+        public int getcount_listagent(string search)
+        {
+            this.cmd.CommandText = $@"select Count(*) from Agent
+                                      where Agent.Title LIKE '%{search}%' or Agent.Email LIKE '%{search}%' or Agent.Phone LIKE '%{search}%'";
+
+            return (int)this.cmd.ExecuteScalar();
+        }
+        public int getcount_listagent(string search, string filter)
+        {
+            this.cmd.CommandText = $@"select Count(*) from Agent
+                                     where (Agent.Title LIKE '%{search}%' or Agent.Email LIKE '%{search}%' or Agent.Phone LIKE '%{search}%') and {filter}";
+            return (int)this.cmd.ExecuteScalar();
+        }
+
         public DataTable get_listTypeProduct()
         {
             SqlDataAdapter data = new SqlDataAdapter("select * from ProductType", this.connection);

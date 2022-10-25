@@ -40,7 +40,12 @@
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.возрастаниюToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.убываниюToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.flowLayoutPanel2 = new System.Windows.Forms.FlowLayoutPanel();
+            this.label3 = new System.Windows.Forms.Label();
+            this.flowLayoutPanel3 = new System.Windows.Forms.FlowLayoutPanel();
+            this.label4 = new System.Windows.Forms.Label();
             this.contextMenuStrip1.SuspendLayout();
+            this.flowLayoutPanel2.SuspendLayout();
             this.SuspendLayout();
             // 
             // label2
@@ -94,7 +99,7 @@
             this.flowLayoutPanel1.Location = new System.Drawing.Point(1, 67);
             this.flowLayoutPanel1.Name = "flowLayoutPanel1";
             this.flowLayoutPanel1.Size = new System.Drawing.Size(509, 377);
-            this.flowLayoutPanel1.TabIndex = 5;
+            this.flowLayoutPanel1.TabIndex = 0;
             // 
             // textBox1
             // 
@@ -108,6 +113,7 @@
             // 
             // contextMenuStrip2
             // 
+            this.contextMenuStrip2.AutoClose = false;
             this.contextMenuStrip2.Name = "contextMenuStrip2";
             this.contextMenuStrip2.ShowImageMargin = false;
             this.contextMenuStrip2.Size = new System.Drawing.Size(36, 4);
@@ -135,11 +141,53 @@
             this.убываниюToolStripMenuItem.Text = "Убыванию";
             this.убываниюToolStripMenuItem.Click += new System.EventHandler(this.убываниюToolStripMenuItem_Click);
             // 
+            // flowLayoutPanel2
+            // 
+            this.flowLayoutPanel2.Controls.Add(this.label3);
+            this.flowLayoutPanel2.Controls.Add(this.flowLayoutPanel3);
+            this.flowLayoutPanel2.Controls.Add(this.label4);
+            this.flowLayoutPanel2.FlowDirection = System.Windows.Forms.FlowDirection.RightToLeft;
+            this.flowLayoutPanel2.Location = new System.Drawing.Point(1, 450);
+            this.flowLayoutPanel2.Name = "flowLayoutPanel2";
+            this.flowLayoutPanel2.Size = new System.Drawing.Size(508, 22);
+            this.flowLayoutPanel2.TabIndex = 10;
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label3.Location = new System.Drawing.Point(491, 0);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(14, 13);
+            this.label3.TabIndex = 0;
+            this.label3.Text = ">";
+            this.label3.Click += new System.EventHandler(this.label3_Click);
+            // 
+            // flowLayoutPanel3
+            // 
+            this.flowLayoutPanel3.AutoSize = true;
+            this.flowLayoutPanel3.Location = new System.Drawing.Point(485, 3);
+            this.flowLayoutPanel3.Name = "flowLayoutPanel3";
+            this.flowLayoutPanel3.Size = new System.Drawing.Size(0, 0);
+            this.flowLayoutPanel3.TabIndex = 0;
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label4.Location = new System.Drawing.Point(465, 0);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(14, 13);
+            this.label4.TabIndex = 0;
+            this.label4.Text = "<";
+            this.label4.Click += new System.EventHandler(this.label4_Click);
+            // 
             // select_product
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(512, 447);
+            this.ClientSize = new System.Drawing.Size(512, 473);
+            this.Controls.Add(this.flowLayoutPanel2);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.comboBox2);
@@ -154,6 +202,8 @@
             this.Text = "Лопушок";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.select_product_FormClosed);
             this.contextMenuStrip1.ResumeLayout(false);
+            this.flowLayoutPanel2.ResumeLayout(false);
+            this.flowLayoutPanel2.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -171,5 +221,9 @@
         private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
         private System.Windows.Forms.ToolStripMenuItem возрастаниюToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem убываниюToolStripMenuItem;
+        private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel2;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel3;
+        private System.Windows.Forms.Label label4;
     }
 }

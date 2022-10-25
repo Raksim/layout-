@@ -66,8 +66,8 @@ namespace WindowsFormsApp1
                 string img = label10.Text;
                 if (openFileDialog1.FileName != "openFileDialog1")
                 {
-                    File.Copy(openFileDialog1.FileName, $"./agents/agent_{Directory.GetFiles("./agents").Length}.jpeg");
-                    img = $"./agents/agent_{Directory.GetFiles("./agents").Length - 1}.jpeg";
+                    img = $"./agents/agent_{Directory.GetFiles("./agents").Length}.jpeg";
+                    File.Copy(openFileDialog1.FileName, img);
                 }
                 this.database.edit_agent(agent.id,textBox1.Text,(int)comboBox1.SelectedValue,textBox2.Text,textBox3.Text,textBox4.Text,textBox5.Text,textBox6.Text,textBox7.Text,img,(int)numericUpDown1.Value);
                 this.Dispose();
