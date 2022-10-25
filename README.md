@@ -3,7 +3,7 @@
 ***
 При использовании этой программы пользователь (Сотрудник компании) сможет регулировать товарооборот, а также ознакомление с информацией по количеству сырья и продукции для приведения в ее норму. Конечная точка всего регулирования — это правильное регулировании сырьем для работы предприятия.
 
-![scr](https://lh3.googleusercontent.com/drive-viewer/AJc5JmSvHtsxwnp9Q_1YhHnEI4-AYbbIfUepxSGoVBRLwHNKOqXkthy2KwomF2_u5y-0t5npS97hoAk=w1366-h696)
+![scr](https://lh3.googleusercontent.com/drive-viewer/AJc5JmR096QAUvaHR3_UfmJEPGB8YWSttXN4yXiQykugb9VtmFrGhekMZ0YjVbq-jvUECsIapf7KQ2s=w1366-h696)
 
 Что бы ознакомиться с:
 - [Руководством пользователя](https://github.com/Raksim/layout-/blob/master/%D0%A0%D1%83%D0%BA%D0%BE%D0%B2%D0%BE%D0%B4%D1%81%D1%82%D0%B2%D0%BE%20%D0%BF%D0%BE%D0%BB%D1%8C%D0%B7%D0%BE%D0%B2%D0%B0%D1%82%D0%B5%D0%BB%D1%8F.pdf)
