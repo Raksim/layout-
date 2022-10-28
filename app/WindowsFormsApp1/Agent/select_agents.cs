@@ -31,7 +31,6 @@ namespace WindowsFormsApp1
             this.mode = mode;
             this.refresh();
         }
-
         public void create_contener_agent(int id, string title, string type, string Phone, string Logo,int Amount_sales)
         {
             Panel contaner = new Panel();
@@ -115,7 +114,7 @@ namespace WindowsFormsApp1
             }
         }
 
-        private void refresh()
+        private bool refresh()
         {
             flowLayoutPanel1.Controls.Clear();
             page = 0;
@@ -129,8 +128,15 @@ namespace WindowsFormsApp1
                 this.listagents = this.DB.get_listagent(page,search, ORDER_BY);
                 this.countpages = (int)Math.Ceiling((decimal)this.DB.getcount_listagent(search)/(decimal)4);
             }
-            listagents.ForEach(item => this.create_contener_agent(item.id, item.title, item.type_agent, item.Phone, item.Logo, item.Amount_sales));
             refresh_pages();
+            if (this.listagents.Count == 0)
+            {
+                this.label5.Visible = true;
+                return false;
+            }
+            this.label5.Visible = false;
+            listagents.ForEach(item => this.create_contener_agent(item.id, item.title, item.type_agent, item.Phone, item.Logo, item.Amount_sales));
+            return true;
         }
         private void refresh_page()
         {

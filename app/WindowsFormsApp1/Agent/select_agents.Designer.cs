@@ -45,6 +45,7 @@
             this.label3 = new System.Windows.Forms.Label();
             this.flowLayoutPanel3 = new System.Windows.Forms.FlowLayoutPanel();
             this.label4 = new System.Windows.Forms.Label();
+            this.label5 = new System.Windows.Forms.Label();
             this.contextMenuStrip2.SuspendLayout();
             this.contextMenuStrip1.SuspendLayout();
             this.flowLayoutPanel2.SuspendLayout();
@@ -97,7 +98,6 @@
             // 
             // flowLayoutPanel1
             // 
-            this.flowLayoutPanel1.AutoScroll = true;
             this.flowLayoutPanel1.Location = new System.Drawing.Point(2, 67);
             this.flowLayoutPanel1.Name = "flowLayoutPanel1";
             this.flowLayoutPanel1.Size = new System.Drawing.Size(509, 377);
@@ -120,12 +120,12 @@
             this.всеТипыToolStripMenuItem});
             this.contextMenuStrip2.Name = "contextMenuStrip2";
             this.contextMenuStrip2.ShowImageMargin = false;
-            this.contextMenuStrip2.Size = new System.Drawing.Size(156, 48);
+            this.contextMenuStrip2.Size = new System.Drawing.Size(100, 26);
             // 
             // всеТипыToolStripMenuItem
             // 
             this.всеТипыToolStripMenuItem.Name = "всеТипыToolStripMenuItem";
-            this.всеТипыToolStripMenuItem.Size = new System.Drawing.Size(155, 22);
+            this.всеТипыToolStripMenuItem.Size = new System.Drawing.Size(99, 22);
             this.всеТипыToolStripMenuItem.Text = "Все типы";
             // 
             // contextMenuStrip1
@@ -192,11 +192,23 @@
             this.label4.Text = "<";
             this.label4.Click += new System.EventHandler(this.label4_Click);
             // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label5.Location = new System.Drawing.Point(166, 224);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(180, 25);
+            this.label5.TabIndex = 0;
+            this.label5.Text = "Агенты не найдены";
+            this.label5.Visible = false;
+            // 
             // select_agents
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(512, 473);
+            this.Controls.Add(this.label5);
             this.Controls.Add(this.flowLayoutPanel2);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
@@ -237,5 +249,6 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel3;
         private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Label label5;
     }
 }

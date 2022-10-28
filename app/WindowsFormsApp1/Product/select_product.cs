@@ -122,7 +122,7 @@ namespace WindowsFormsApp1
                     break;
             }
         }
-        private void refresh()
+        private bool refresh()
         {
             flowLayoutPanel1.Controls.Clear();
             page = 0;
@@ -136,8 +136,14 @@ namespace WindowsFormsApp1
                 listproduct = this.DB.get_listproduct(page,search, ORDER_BY);
                 countpages = (int)Math.Ceiling((decimal)this.DB.getcount_listproduct(search)/ (decimal)4);
             }
-            listproduct.ForEach(item => this.create_container_product(item.id, item.title, item.type_product, item.articul, item.material, item.image, item.price));
             refresh_pages();
+            if (listproduct.Count == 0) { 
+                this.label5.Visible = true;
+                return false;
+            }
+            this.label5.Visible = false;
+            listproduct.ForEach(item => this.create_container_product(item.id, item.title, item.type_product, item.articul, item.material, item.image, item.price));
+            return true;
         }
         private void refresh_page()
         {
